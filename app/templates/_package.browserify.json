@@ -47,7 +47,8 @@
     "browserify": "^12.0.1",
     "gulp-sourcemaps": "^1.6.0",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "forceng": "https://github.com/john-benson/forceng.git#master"
   },
   "scripts": {
     "gulp": "./node_modules/.bin/gulp"
