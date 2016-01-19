@@ -1,11 +1,14 @@
-/**
- * Import fonts either via @import url (e.g. from Googlee Fonts)
- * or via @font-face when font files are stored locally in /app/fonts
- */
+/* Do not remove this comments bellow. It's the markers used by gulp-inject to inject
+   all your sass files automatically */
 
+@import 'node_modules/ionic/scss/ionic';
+
+$textColor: #ccc;
+
+//injector
+//endinjector
 
 // @import url(http://fonts.googleapis.com/css?family=Roboto:700,400,300);
-
 @font-face {
     font-family: 'Roboto';
     src: url(../fonts/Roboto-Light.ttf) format("truetype");
@@ -25,4 +28,10 @@
     src: url(../fonts/Roboto-Bold.ttf) format("truetype");
     font-weight: 700;
     font-style: normal;
+}
+
+.loader {
+  text-align: center;
+  width: 100%;
+  padding: 20px 0;
 }

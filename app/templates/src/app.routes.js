@@ -1,28 +1,5 @@
-'use strict';
-
-/**
- * @ngdoc overview
- * @name <%= ngModulName %>
- * @description
- * # Initializes main application and routing
- *
- * Main module of the application.
- */
-
-
-angular.module('<%= ngModulName %>', ['ionic', 'ngCordova', 'ngResource'])
-
-  .run(function($ionicPlatform) {
-
-    $ionicPlatform.ready(function() {
-      // save to use plugins here
-    });
-
-    // add possible global event handlers here
-
-  })
-
-  .config(function($httpProvider, $stateProvider, $urlRouterProvider) {
+module.exports = ['$httpProvider', '$stateProvider', '$urlRouterProvider',
+    function( $httpProvider, $stateProvider, $urlRouterProvider ) {
     // register $http interceptors, if any. e.g.
     // $httpProvider.interceptors.push('interceptor-name');
 
@@ -31,7 +8,7 @@ angular.module('<%= ngModulName %>', ['ionic', 'ngCordova', 'ngResource'])
       .state('app', {
         url: '/app',
         abstract: true,
-        templateUrl: 'templates/main.html',
+        templateUrl: 'app/components/main/main.html',
         controller: 'MainController'
       })
       .state('app.home', {
@@ -39,7 +16,7 @@ angular.module('<%= ngModulName %>', ['ionic', 'ngCordova', 'ngResource'])
         cache: true,
         views: {
           'viewContent': {
-            templateUrl: 'templates/views/home.html',
+            templateUrl: 'app/components/home/home.html',
             controller: 'HomeController'
           }
         }
@@ -49,7 +26,7 @@ angular.module('<%= ngModulName %>', ['ionic', 'ngCordova', 'ngResource'])
         cache: true,
         views: {
           'viewContent': {
-            templateUrl: 'templates/views/settings.html',
+            templateUrl: 'app/components/settings/settings.html',
             controller: 'SettingsController'
           }
         }
@@ -58,6 +35,5 @@ angular.module('<%= ngModulName %>', ['ionic', 'ngCordova', 'ngResource'])
 
     // redirects to default route for undefined routes
     $urlRouterProvider.otherwise('/app/home');
-  });
-
-
+  }
+];

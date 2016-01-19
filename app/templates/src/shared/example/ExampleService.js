@@ -6,14 +6,9 @@
  * @description
  * # ExampleService
  */
-module.exports = [
-    '$http',
-    '$timeout',
-    '$q',
-
-    function( $http, $timeout, $q )
-    {
-      var kindOfPrivateVariable = 42;
+module.exports = [ '$http', '$timeout', '$q', 'mySpecialConstant',
+    function( $http, $timeout, $q, mySpecialConstant ) {
+      var kindOfPrivateVariable = mySpecialConstant;
 
       var doSomethingAsync = function() {
         var deferred = $q.defer();
