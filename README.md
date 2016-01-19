@@ -66,7 +66,7 @@ By running just `gulp`, we start our development build process, consisting of:
 - start local development server and serve from `.tmp`
 - start watchers to automatically lint javascript source files, compile scss and reload browser on changes
 
-#### Browserify support
+#### Browserify support - NOW MANDATORY
 
 If you opted for browserify support all your sources will be kept in app/src instead of app/scripts.
 Please check app/src/app.js to see how modules can be added to your angular module.

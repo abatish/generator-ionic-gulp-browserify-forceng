@@ -3,7 +3,14 @@
   "version": "1.0.0",
   "author": "<%= userName %> <<%= userEmail %>>",
   "description": "",
-  "dependencies": {},
+  "private": true,
+  "dependencies": {
+    "ionic": "1.7.12",
+    "angular": "1.4.8",
+    "angular-resource" : "1.4.8",
+    "ngCordova": "0.1.24-alpha",
+    "forceng": "https://github.com/john-benson/forceng.git#master"
+  },
   "devDependencies": {
     "beepbeep": "^1.2.0",
     "connect-livereload": "^0.5.2",
@@ -43,7 +50,11 @@
     "shelljs": "^0.5.3",
     "streamqueue": "^1.1.1",
     "wiredep": "^3.0.0",
-    "yargs": "^3.31.0"
+    "yargs": "^3.31.0",
+    "browserify": "^12.0.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
   },
   "scripts": {
     "gulp": "./node_modules/.bin/gulp"
