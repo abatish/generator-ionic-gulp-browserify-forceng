@@ -1,0 +1,31 @@
+{
+  "name": "<%= ngModelName %>",
+  "description": "",
+  "dependencies": {
+    "ionic": "1.2.4"
+  },
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [ ],
+  "authors": [
+    "<%= userName %> <<%= userEmail %>>"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "private": true,
+  "resolutions": {
+    "ionic": "1.2.4",
+    "angular-animate": "1.4.3",
+    "angular-sanitize": "1.4.3",
+    "angular-ui-router": "0.2.13",
+    "angular": "1.4.8"
+  }
+}

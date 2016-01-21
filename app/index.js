@@ -93,6 +93,14 @@ module.exports = yeoman.generators.Base.extend({
       this.fs.copyTpl(
         this.templatePath( '_gulpfile.js'),
         this.destinationPath('gulpfile.js'),
+        { ngModulName: this._.classify(this.appName),
+          userName: this.userName,
+          userEmail: this.userMail }
+      );
+
+      this.fs.copyTpl(
+        this.templatePath( '_bower.json'),
+        this.destinationPath('bower.json'),
         { ngModulName: this._.classify(this.appName) }
       );
 
@@ -108,6 +116,10 @@ module.exports = yeoman.generators.Base.extend({
         this.templatePath('jshintrc'),
         this.destinationPath('.jshintrc')
       );
+      this.fs.copy(
+        this.templatePath('bower.rc'),
+        this.destinationPath('bower.rc')
+      );
 
       this.mkdir('helpers');
       this.mkdir('www');
@@ -115,6 +127,36 @@ module.exports = yeoman.generators.Base.extend({
       this.fs.copy(
         this.templatePath('helpers/emulateios'),
         this.destinationPath('helpers/emulateios')
+      );
+
+      this.mkdir('gulp');
+      this.fs.copy(
+        this.templatePath('gulp/build.js'),
+        this.destinationPath('gulp/build.js')
+      );
+      this.fs.copy(
+        this.templatePath('gulp/conf.js'),
+        this.destinationPath('gulp/conf.js')
+      );
+      this.fs.copy(
+        this.templatePath('gulp/ionic.js'),
+        this.destinationPath('gulp/ionic.js')
+      );
+      this.fs.copy(
+        this.templatePath('gulp/scripts.js'),
+        this.destinationPath('gulp/scripts.js')
+      );
+      this.fs.copy(
+        this.templatePath('gulp/styles.js'),
+        this.destinationPath('gulp/styles.js')
+      );
+      this.fs.copy(
+        this.templatePath('gulp/serve.js'),
+        this.destinationPath('gulp/serve.js')
+      );
+      this.fs.copy(
+        this.templatePath('gulp/watch.js'),
+        this.destinationPath('gulp/watch.js')
       );
 
     },
@@ -129,16 +171,32 @@ module.exports = yeoman.generators.Base.extend({
 
       this.fs.copyTpl(
         this.templatePath('index.html'),
-        this.destinationPath('app/index.html'),
+        this.destinationPath(path.join(options.src, 'index.html')),
         { title: this.appName, ngModulName: this._.classify(this.appName)  }
       );
 
-
       // app
       this.fs.copyTpl(
-        this.templatePath('src/app.js'),
-        this.destinationPath('src/app/app.js'),
+        this.templatePath(path.join(options.src, 'app.js')),
+        this.destinationPath(path.join(options.app, 'app.js')),
         { ngModulName: this._.classify(this.appName) }
+      );
+      this.fs.copyTpl(
+        this.templatePath(path.join(options.src, 'app.config.js')),
+        this.destinationPath(path.join(options.app, 'app.config.js')),
+        { ngModulName: this._.classify(this.appName) }
+      );
+      this.fs.copy(
+        this.templatePath(path.join(options.src, 'app.scss')),
+        this.destinationPath(path.join(options.app, 'app.scss'))
+      );
+      this.fs.copy(
+        this.templatePath(path.join(options.src, 'app.run.js')),
+        this.destinationPath(path.join(options.app, 'app.run.js'))
+      );
+      this.fs.copy(
+        this.templatePath(path.join(options.src, 'app.routes.js')),
+        this.destinationPath(path.join(options.app, 'app.routes.js'))
       );
 
       // components
@@ -151,30 +209,42 @@ module.exports = yeoman.generators.Base.extend({
 
       var homeHtml = '/components/home/home.html';
       this.fs.copyTpl(
-        this.templatePath(options.src + homeHtml),
-        this.destinationPath(options.app + homeHtml),
+        this.templatePath(path.join(options.src, homeHtml)),
+        this.destinationPath(path.join(options.app, homeHtml)),
         { title: this.appName }
       );
 
       var mainController = '/components/main/mainController.js';
       this.fs.copyTpl(
-        this.templatePath(options.src + mainController),
-        this.destinationPath(options.app + mainController),
+        this.templatePath(path.join(options.src, mainController)),
+        this.destinationPath(path.join(options.app, mainController)),
         { ngModulName: this._.classify(this.appName) }
+      );
+      var mainHtml = '/components/main/main.html';
+      this.fs.copyTpl(
+        this.templatePath(path.join(options.src, mainHtml)),
+        this.destinationPath(path.join(options.app, mainHtml)),
+        { title: this.appName }
       );
 
       var settingsController = '/components/settings/settingsController.js';
       this.fs.copyTpl(
-        this.templatePath(options.src + settingsController),
-        this.destinationPath(options.app + settingsController),
+        this.templatePath(path.join(options.src, settingsController)),
+        this.destinationPath(path.join(options.app, settingsController)),
         { ngModulName: this._.classify(this.appName) }
+      );
+      var settingsHtml = '/components/settings/settings.html';
+      this.fs.copyTpl(
+        this.templatePath(path.join(options.src, settingsHtml)),
+        this.destinationPath(path.join(options.app, settingsHtml)),
+        { title: this.appName }
       );
 
       // shared
       var exampleService = '/shared/example/ExampleService.js';
       this.fs.copyTpl(
-        this.templatePath(options.src + exampleService),
-        this.destinationPath(options.app + exampleService),
+        this.templatePath(path.join(options.src, exampleService)),
+        this.destinationPath(path.join(options.app, exampleService)),
         { ngModulName: this._.classify(this.appName) }
       );
 

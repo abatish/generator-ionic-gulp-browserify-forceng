@@ -9,7 +9,7 @@
 module.exports = [
     '$scope',
 
-    function( $scope )
+    function(  )
     {
         // do something with $scope
     }

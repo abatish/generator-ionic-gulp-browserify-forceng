@@ -8,12 +8,13 @@
  *
  * Main module of the application.
  */
-
+ 
+require('ionic');
 var angular = require('angular');
 
 angular.module( '<%= ngModulName %>', [
-    require('ionic'), require('ngCordova'), require('ng-resource'),
-    require('forceng'), require('./app.config.js')
+  'ionic', require('ng-cordova'), require('angular-resource'),
+  require('forceng'), require('./app.config.js')
 ] )
 
 .run( require('./app.run.js') )
@@ -24,5 +25,4 @@ angular.module( '<%= ngModulName %>', [
 .controller( 'HomeController',     require( './components/home/homeController'     ) )
 .controller( 'SettingsController', require( './components/settings/settingsController' ) )
 
-.factory( 'ExampleService',        require( './shared/example/ExampleService' ) )
-.factory( 'ApiService',            require( './sha/ApiService'     ) ) ;
+.factory( 'ExampleService',        require( './shared/example/ExampleService' ) ) ;
