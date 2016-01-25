@@ -13,5 +13,4 @@ www/
 *.DS_Store
 *.log
 
-app/scripts/bundle.js
-app/scripts/bundle.js.map
+coverage/

@@ -7,7 +7,7 @@ describe('The home view', function () {
 
   beforeEach(function() {
     browser.get('/index.html');
-    page = require('./home.controller.po');
+    page = require('./home.po');
     shared = require('../shared.po');
   });
 
