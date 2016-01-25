@@ -8,16 +8,16 @@ module.exports = ['$httpProvider', '$stateProvider', '$urlRouterProvider',
       .state('app', {
         url: '/app',
         abstract: true,
-        templateUrl: 'app/components/main/main.html',
-        controller: 'MainController'
+        templateUrl: '/main/main.html',
+        controller: 'MainController as vm'
       })
       .state('app.home', {
         url: '/home',
         cache: true,
         views: {
           'viewContent': {
-            templateUrl: 'app/components/home/home.html',
-            controller: 'HomeController'
+            templateUrl: '/home/home.html',
+            controller: 'HomeController as vm'
           }
         }
       })
@@ -26,8 +26,8 @@ module.exports = ['$httpProvider', '$stateProvider', '$urlRouterProvider',
         cache: true,
         views: {
           'viewContent': {
-            templateUrl: 'app/components/settings/settings.html',
-            controller: 'SettingsController'
+            templateUrl: '/settings/settings.html',
+            controller: 'SettingsController as vm'
           }
         }
       });

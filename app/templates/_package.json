@@ -4,41 +4,92 @@
   "author": "John Benson <johnedwardbenson@gmail.com>",
   "description": "",
   "private": true,
+  "scripts": {
+    "install": "napa & gulp package & ionic state restore"
+  },
+  "browser": {
+    "ionic": "./node_modules/ionic-frontend/release/js/ionic.js",
+    "angular": "./node_modules/ionic-frontend/release/js/angular/angular.js",
+    "angular-animate": "./node_modules/ionic-frontend/release/js/angular/angular-animate.js",
+    "angular-resource": "./node_modules/ionic-frontend/release/js/angular/angular-resource.js",
+    "angular-sanitize": "./node_modules/ionic-frontend/release/js/angular/angular-sanitize.js",
+    "ionic-angular": "./node_modules/ionic-frontend/release/js/ionic-angular.js",
+    "angular-ui-router": "./node_modules/ionic-frontend/release/js/angular-ui/angular-ui-router.js"
+  },
   "browserify": {
     "transform": [
       "browserify-shim"
     ]
   },
   "browserify-shim": {
-    "ionic": "ionic"
+    "angular": "angular",
+    "ionic": "ionic",
+    "angular-animate": {
+      "depends": [
+        "angular"
+      ]
+    },
+    "angular-resource": {
+      "depends": [
+        "angular"
+      ]
+    },
+    "angular-ui-router": {
+      "depends": [
+        "angular"
+      ]
+    },
+    "angular-sanitize": {
+      "depends": [
+        "angular"
+      ]
+    },
+    "ionic-angular": {
+      "depends": [
+        "angular",
+        "angular-animate",
+        "angular-resource",
+        "angular-sanitize",
+        "angular-ui-router",
+        "ionic"
+      ]
+    }
   },
   "dependencies": {
-    "ionic": "1.7.12",
     "angular": "1.4.8",
     "angular-resource": "1.4.8",
     "ng-cordova": "0.1.24-alpha",
     "forceng": "https://github.com/abatish/forceng.git#master"
   },
-  "browser": {
-    "ionic": "./bower_components/ionic/release/js/ionic.js"
+  "napa": {
+    "ionic-frontend": "driftyco/ionic#v1.2.4"
   },
   "devDependencies": {
     "browser-sync": "2.11.0",
     "browserify": "12.0.1",
+    "browserify-ng-html2js": "1.1.5",
     "browserify-shim": "3.8.12",
     "del": "2.2.0",
     "gulp": "3.9.0",
     "gulp-cssnano": "2.1.0",
     "gulp-debug": "2.1.2",
     "gulp-file": "0.2.0",
+    "gulp-filter": "3.0.1",
     "gulp-if": "2.0.0",
     "gulp-inject": "3.0.0",
     "gulp-load-plugins": "1.1.0",
     "gulp-sass": "2.1.1",
-    "gulp-strip-comments": "^2.2.1",
+    "gulp-shell": "0.5.1",
+    "gulp-sourcemaps": "1.6.0",
+    "gulp-strip-comments": "2.2.1",
     "gulp-uglify": "1.5.1",
     "gulp-util": "3.0.7",
+    "http-proxy-middleware": "0.9.1",
+    "ionic": "1.7.13",
     "microtime": "2.0.0",
+    "napa": "0.4.1",
+    "run-sequence": "1.1.5",
+    "shelljs": "^0.5.3",
     "stripify": "3.0.0",
     "through2": "2.0.0",
     "vinyl-buffer": "1.0.0",
@@ -47,5 +98,12 @@
     "watchify": "3.7.0",
     "wrench": "1.5.8",
     "yargs": "3.32.0"
-  }
+  },
+  "cordovaPlugins": [
+    "cordova-plugin-whitelist",
+    "cordova-plugin-inappbrowser@1.1.0"
+  ],
+  "cordovaPlatforms": [
+    "android"
+  ]
 }

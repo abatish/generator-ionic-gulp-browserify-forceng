@@ -10,6 +10,7 @@ var gutil = require('gulp-util'),
     argv = require('yargs')
             .boolean(['prod'])
             .default('prod', false)
+            .default('platform', 'android')
             .argv;
 
 /**
@@ -18,10 +19,16 @@ var gutil = require('gulp-util'),
 exports.paths = {
   src: 'src',
   dist: 'www',
+  build: 'build',
   app: 'src/app',
   tmp: '.tmp',
-  e2e: 'e2e'
+  e2e: 'e2e',
+  npm: 'node_modules',
+  res: 'resources',
+  hooks: 'hooks'
 };
+
+exports.platform = argv.platform;
 
 exports.prod = argv.prod;
 

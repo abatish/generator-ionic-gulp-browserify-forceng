@@ -1,11 +1,6 @@
 'use strict';
 
-/**
- * @ngdoc function
- * @name <%= ngModulName %>.controller:MainController
- * @description
- * # MainController
- */
+require('./main.html');
 module.exports = [
     '$scope',
 

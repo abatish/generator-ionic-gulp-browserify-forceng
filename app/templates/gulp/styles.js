@@ -2,11 +2,18 @@ var gulp = require('gulp'),
     $ = require('gulp-load-plugins')({
       pattern: ['gulp-*', 'gulp.*', 'vinyl-*']
     }),
+    browserSync = require('browser-sync'),
     path = require('path'),
     conf = require('./conf');
 
+gulp.task('fonts', [], function () {
+  return gulp.src([
+      path.join(conf.paths.npm, 'ionic-frontend/release/fonts/**/*.+(eot|svg|ttf|woff)')
+    ])
+    .pipe(gulp.dest(path.join(conf.paths.build, 'fonts')));
+});
 
-gulp.task('sass', [], function () {
+function buildStyles() {
   var injectFiles = gulp.src([
     path.join(conf.paths.app, '**/*.scss'),
     '!' + path.join(conf.paths.app, 'app.scss')
@@ -30,5 +37,14 @@ gulp.task('sass', [], function () {
     .pipe($.inject(injectFiles, injectOptions))
     .pipe($.sass(sassOptions).on('error', conf.errorHandler('Sass')))
     .pipe($.if(conf.prod, $.cssnano()))
-    .pipe(gulp.dest(path.join(conf.paths.dist, 'app')));
+    .pipe(gulp.dest(path.join(conf.paths.build, 'app')));
+}
+
+gulp.task('styles', [], function () {
+  return buildStyles();
 })
+
+gulp.task('styles-reload', ['styles'], function() {
+  return buildStyles()
+    .pipe(browserSync.stream());
+});

@@ -1,0 +1,18 @@
+<ion-view>
+    <ion-header-bar align-title="center" class="bar-positive">
+    <button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
+        <h1 class="title"><%= title %></h1>
+    </ion-header-bar>
+
+    <ion-content>
+      <div ng-show="vm.userId !== null">
+        Logged in as {{ vm.userId }}
+        <button class="button button-block button-assertive" ng-click="vm.logout()">Logout</button>
+      </div>
+      <div ng-show="vm.userId === null">
+        <span>No user is currently logged in</span>
+        <button class="button button-block button-calm" ng-click="vm.login()">Login</button>
+      </div>
+    </ion-content>
+
+</ion-view>

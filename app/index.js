@@ -43,13 +43,32 @@ module.exports = yeoman.generators.Base.extend({
         name: 'userMail',
         message: 'Author email? (for config files)',
         default : this.user.git.email || 'email@example.com'
-
+      },
+      {
+        type: 'input',
+        name: 'sfAppId',
+        message: 'Salesforce Connected App ID?'
+      },
+      {
+        type: 'input',
+        name: 'sfApiVersion',
+        message: 'Salesforce API Version?',
+        default: 'v32.0'
+      },
+      {
+        type: 'input',
+        name: 'sfLoginUrl',
+        message: 'Salesforce Login Url?',
+        default: 'https://login.salesforce.com'
       }];
 
       this.prompt(prompts, function(props) {
         this.appName = props.appName;
         this.userName = props.userName;
         this.userMail = props.userMail;
+        this.sfAppId = props.sfAppId;
+        this.sfApiVersion = props.sfApiVersion;
+        this.sfLoginUrl = props.sfLoginUrl;
 
         done();
       }.bind(this));
@@ -61,7 +80,7 @@ module.exports = yeoman.generators.Base.extend({
         type: 'input',
         name: 'appId',
         message: 'The app id?',
-        default : 'com.' + this._.classify(this.userName).toLowerCase() + '.' + this._.classify(this.appName).toLowerCase()
+        default : 'com.incapsulate.' + this._.classify(this.appName).toLowerCase()
       }], function (props) {
         this.appId = props.appId;
         done();
@@ -82,6 +101,11 @@ module.exports = yeoman.generators.Base.extend({
           userEmail: this.userMail }
       );
       this.fs.copyTpl(
+        this.templatePath('ionic.project'),
+        this.destinationPath('ionic.project'),
+        { appName: this._.underscored(this.appName) }
+      );
+      this.fs.copyTpl(
         this.templatePath('_config.xml'),
         this.destinationPath('config.xml'),
         { appName: this.appName,
@@ -98,12 +122,6 @@ module.exports = yeoman.generators.Base.extend({
           userEmail: this.userMail }
       );
 
-      this.fs.copyTpl(
-        this.templatePath( '_bower.json'),
-        this.destinationPath('bower.json'),
-        { ngModulName: this._.classify(this.appName) }
-      );
-
       this.fs.copy(
         this.templatePath('editorconfig'),
         this.destinationPath('.editorconfig')
@@ -115,10 +133,6 @@ module.exports = yeoman.generators.Base.extend({
       this.fs.copy(
         this.templatePath('jshintrc'),
         this.destinationPath('.jshintrc')
-      );
-      this.fs.copy(
-        this.templatePath('bower.rc'),
-        this.destinationPath('bower.rc')
       );
 
       this.mkdir('helpers');
@@ -142,17 +156,19 @@ module.exports = yeoman.generators.Base.extend({
         this.templatePath('gulp/ionic.js'),
         this.destinationPath('gulp/ionic.js')
       );
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('gulp/scripts.js'),
-        this.destinationPath('gulp/scripts.js')
+        this.destinationPath('gulp/scripts.js'),
+        { ngModulName: this._.classify(this.appName) }
       );
       this.fs.copy(
         this.templatePath('gulp/styles.js'),
         this.destinationPath('gulp/styles.js')
       );
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('gulp/serve.js'),
-        this.destinationPath('gulp/serve.js')
+        this.destinationPath('gulp/serve.js'),
+        { sfLoginUrl : this.sfLoginUrl }
       );
       this.fs.copy(
         this.templatePath('gulp/watch.js'),
@@ -190,9 +206,10 @@ module.exports = yeoman.generators.Base.extend({
         this.templatePath(path.join(options.src, 'app.scss')),
         this.destinationPath(path.join(options.app, 'app.scss'))
       );
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath(path.join(options.src, 'app.run.js')),
-        this.destinationPath(path.join(options.app, 'app.run.js'))
+        this.destinationPath(path.join(options.app, 'app.run.js')),
+        { sfAppId: this.sfAppId, sfApiVersion: this.sfApiVersion, sfLoginUrl: this.sfLoginUrl }
       );
       this.fs.copy(
         this.templatePath(path.join(options.src, 'app.routes.js')),
@@ -200,40 +217,40 @@ module.exports = yeoman.generators.Base.extend({
       );
 
       // components
-      var homeController = '/components/home/homeController.js';
+      var homeController = '/home/homeController.js';
       this.fs.copyTpl(
         this.templatePath(options.src + homeController),
         this.destinationPath(options.app + homeController),
         { ngModulName: this._.classify(this.appName) }
       );
 
-      var homeHtml = '/components/home/home.html';
+      var homeHtml = '/home/home.html';
       this.fs.copyTpl(
         this.templatePath(path.join(options.src, homeHtml)),
         this.destinationPath(path.join(options.app, homeHtml)),
         { title: this.appName }
       );
 
-      var mainController = '/components/main/mainController.js';
+      var mainController = '/main/mainController.js';
       this.fs.copyTpl(
         this.templatePath(path.join(options.src, mainController)),
         this.destinationPath(path.join(options.app, mainController)),
         { ngModulName: this._.classify(this.appName) }
       );
-      var mainHtml = '/components/main/main.html';
+      var mainHtml = '/main/main.html';
       this.fs.copyTpl(
         this.templatePath(path.join(options.src, mainHtml)),
         this.destinationPath(path.join(options.app, mainHtml)),
         { title: this.appName }
       );
 
-      var settingsController = '/components/settings/settingsController.js';
+      var settingsController = '/settings/settingsController.js';
       this.fs.copyTpl(
         this.templatePath(path.join(options.src, settingsController)),
         this.destinationPath(path.join(options.app, settingsController)),
         { ngModulName: this._.classify(this.appName) }
       );
-      var settingsHtml = '/components/settings/settings.html';
+      var settingsHtml = '/settings/settings.html';
       this.fs.copyTpl(
         this.templatePath(path.join(options.src, settingsHtml)),
         this.destinationPath(path.join(options.app, settingsHtml)),
@@ -241,7 +258,7 @@ module.exports = yeoman.generators.Base.extend({
       );
 
       // shared
-      var exampleService = '/shared/example/ExampleService.js';
+      var exampleService = '/components/example/ExampleService.js';
       this.fs.copyTpl(
         this.templatePath(path.join(options.src, exampleService)),
         this.destinationPath(path.join(options.app, exampleService)),
@@ -263,7 +280,9 @@ module.exports = yeoman.generators.Base.extend({
 
   install: function () {
     this.installDependencies({
-      skipInstall: this.options['skip-install']
+      skipInstall: options['skip-install'],
+      bower: false
+      //, npm: false
     });
   }
 });
