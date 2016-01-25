@@ -11,7 +11,8 @@ function runTests (singleRun, done) {
         singleRun: true,
         autoWatch: false
       }, function() {
-        done(); 
+        done();
+        process.exit(); // force gulp to exit immediately.
       })
 
     server.start();

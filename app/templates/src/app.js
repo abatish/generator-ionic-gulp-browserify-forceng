@@ -1,8 +1,8 @@
 'use strict';
 
- require('angular-resource')
+ require('angular-resource');
  require('ionic-angular');
- require('ng-cordova')
+ require('ng-cordova');
  var angular = require('angular');
 
 angular.module( '<%= ngModulName %>', [

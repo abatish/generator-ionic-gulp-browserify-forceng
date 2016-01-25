@@ -29,6 +29,7 @@ function runProtractor (done) {
       browserSync.exit();
       watchify.close();
       done();
+      process.exit(); // force gulp to exit immediately.
     });
 }
 

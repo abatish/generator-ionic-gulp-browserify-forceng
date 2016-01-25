@@ -5,7 +5,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "install": "napa & gulp package & ionic state restore"
+    "install": "node node_modules/napa/bin/napa && node node_modules/gulp/bin/gulp package && node node_modules/ionic/bin/ionic state restore"
   },
   "browser": {
     "ionic": "./node_modules/ionic-frontend/release/js/ionic.js",
