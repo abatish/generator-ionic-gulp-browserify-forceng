@@ -14,8 +14,8 @@ angular.module( '<%= ngModulName %>', [
 
 .config( require('./app.routes.js') )
 
-.controller( 'MainController',     require( './main/mainController'     ) )
-.controller( 'HomeController',     require( './home/homeController'     ) )
-.controller( 'SettingsController', require( './settings/settingsController' ) )
+.controller( 'MainController',     require( './main/main.controller'     ) )
+.controller( 'HomeController',     require( './home/home.controller'     ) )
+.controller( 'SettingsController', require( './settings/settings.controller' ) )
 
-.factory( 'ExampleService',        require( './components/example/ExampleService' ) ) ;
+.factory( 'ExampleService',        require( './components/example/example.service' ) ) ;

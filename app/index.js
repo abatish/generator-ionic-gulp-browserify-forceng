@@ -8,7 +8,8 @@ var appPath = path.join(process.cwd(), 'app');
 
 var options = {
   app: 'src/app',
-  src: 'src'
+  src: 'src',
+  e2e: 'e2e'
 };
 
 module.exports = yeoman.generators.Base.extend({
@@ -123,6 +124,14 @@ module.exports = yeoman.generators.Base.extend({
       );
 
       this.fs.copy(
+        this.templatePath('_karma.conf.js'),
+        this.destinationPath('karma.conf.js')
+      );
+      this.fs.copy(
+        this.templatePath('_protractor.conf.js'),
+        this.destinationPath('protractor.conf.js')
+      );
+      this.fs.copy(
         this.templatePath('editorconfig'),
         this.destinationPath('.editorconfig')
       );
@@ -174,6 +183,14 @@ module.exports = yeoman.generators.Base.extend({
         this.templatePath('gulp/watch.js'),
         this.destinationPath('gulp/watch.js')
       );
+      this.fs.copy(
+        this.templatePath('gulp/e2e.js'),
+        this.destinationPath('gulp/e2e.js')
+      );
+      this.fs.copy(
+        this.templatePath('gulp/unit-test.js'),
+        this.destinationPath('gulp/unit-test.js')
+      );
 
     },
 
@@ -181,8 +198,6 @@ module.exports = yeoman.generators.Base.extend({
       this.directory('app', 'app');
       this.directory('hooks', 'hooks');
 
-      this.mkdir('app/icons');
-      this.mkdir('app/images');
       this.mkdir('resources');
 
       this.fs.copyTpl(
@@ -217,21 +232,31 @@ module.exports = yeoman.generators.Base.extend({
       );
 
       // components
-      var homeController = '/home/homeController.js';
+      var homeController = '/home/home.controller.js';
       this.fs.copyTpl(
         this.templatePath(options.src + homeController),
         this.destinationPath(options.app + homeController),
         { ngModulName: this._.classify(this.appName) }
       );
-
       var homeHtml = '/home/home.html';
       this.fs.copyTpl(
         this.templatePath(path.join(options.src, homeHtml)),
         this.destinationPath(path.join(options.app, homeHtml)),
         { title: this.appName }
       );
+      var homeScss = '/home/home.scss';
+      this.fs.copy(
+        this.templatePath(path.join(options.src, homeScss)),
+        this.destinationPath(path.join(options.app, homeScss))
+      );
+      var homeSpec = '/home/home.controller.spec.js';
+      this.fs.copyTpl(
+        this.templatePath(path.join(options.src, homeSpec)),
+        this.destinationPath(path.join(options.app, homeSpec)),
+        { ngModulName: this._.classify(this.appName) }
+      );
 
-      var mainController = '/main/mainController.js';
+      var mainController = '/main/main.controller.js';
       this.fs.copyTpl(
         this.templatePath(path.join(options.src, mainController)),
         this.destinationPath(path.join(options.app, mainController)),
@@ -244,7 +269,7 @@ module.exports = yeoman.generators.Base.extend({
         { title: this.appName }
       );
 
-      var settingsController = '/settings/settingsController.js';
+      var settingsController = '/settings/settings.controller.js';
       this.fs.copyTpl(
         this.templatePath(path.join(options.src, settingsController)),
         this.destinationPath(path.join(options.app, settingsController)),
@@ -258,7 +283,7 @@ module.exports = yeoman.generators.Base.extend({
       );
 
       // shared
-      var exampleService = '/components/example/ExampleService.js';
+      var exampleService = '/components/example/example.service.js';
       this.fs.copyTpl(
         this.templatePath(path.join(options.src, exampleService)),
         this.destinationPath(path.join(options.app, exampleService)),
@@ -273,6 +298,23 @@ module.exports = yeoman.generators.Base.extend({
       this.fs.copy(
         this.templatePath('icon.png'),
         this.destinationPath('resources/icon.png')
+      );
+
+      //E2E
+      var e2eShared = '/e2e/shared.po.js';
+      this.fs.copy(
+        this.templatePath(e2eShared),
+        this.destinationPath(e2eShared)
+      );
+      var homePO = '/e2e/home/home.po.js';
+      this.fs.copy(
+        this.templatePath(homePO),
+        this.destinationPath(homePO)
+      );
+      var homeSpec = '/e2e/home/home.spec.js';
+      this.fs.copy(
+        this.templatePath(homeSpec),
+        this.destinationPath(homeSpec)
       );
     }
 

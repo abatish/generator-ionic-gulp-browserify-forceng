@@ -28,7 +28,7 @@ gulp.task('clean', [], function () {
 });
 
 gulp.task('build', [], function (callback) {
-  runSequence('clean', ['inject', 'fonts', 'copy'], callback);
+  return runSequence('clean', ['inject', 'fonts', 'copy'], callback);
 });
 
 gulp.task('copy', [], function () {

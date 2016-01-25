@@ -5,12 +5,14 @@ var gulp = require('gulp'),
     conf = require('./conf'),
     proxyMiddleware = require('http-proxy-middleware');
 
-function initServer(baseDir) {
+function initServer(baseDir, browser) {
+  browser = browser === undefined ? 'default' : browser;
+
   var routes = {};
   var idProxy = proxyMiddleware(
     '/id',
     {
-      target: '<%= sfLoginUrl %>',
+      target: 'https://test.salesforce.com',
       changeOrigin: true,
       logLevel: 'debug'
     }
@@ -19,12 +21,13 @@ function initServer(baseDir) {
   var servicesProxy = proxyMiddleware(
     '/services',
     {
-      target: '<%= sfLoginUrl %>',
+      target: 'https://test.salesforce.com',
       changeOrigin: true,
       logLevel: 'debug'
     }
   );
   browserSync.init({
+    browser: browser,
     server: {
       baseDir: baseDir,
       routes: routes,
@@ -37,4 +40,8 @@ gulp.task('refresh', ['scripts', 'styles'], browserSync.reload);
 
 gulp.task('serve', ['watch'], function () {
   return initServer(conf.paths.build);
+});
+
+gulp.task('serve:e2e', ['build'], function () {
+  return initServer(conf.paths.build, []);
 });
