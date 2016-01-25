@@ -1,11 +1,9 @@
 describe('home.controller', function(){
   var vm;
-
   beforeEach(function () {
     angular.mock.module('<%= ngModulName %>');
-
-    angular.mock.inject(function($controller) {
-      vm = $controller('HomeController');
+    angular.mock.inject(function($controller, $rootScope) {
+      vm = $controller('HomeController', { $scope: $rootScope.$new() });
     });
   });
 
