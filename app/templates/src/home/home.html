@@ -7,11 +7,11 @@
     <ion-content>
       <div ng-show="vm.userId !== null">
         Logged in as {{ vm.userId }}
-        <button class="button button-block button-assertive" ng-click="vm.logout()">Logout</button>
+        <button class="logout-button button button-block button-assertive" ng-click="vm.logout()">Logout</button>
       </div>
       <div ng-show="vm.userId === null">
         <span>No user is currently logged in</span>
-        <button class="button button-block button-calm" ng-click="vm.login()">Login</button>
+        <button class="login-button button button-block button-calm" ng-click="vm.login()">Login</button>
       </div>
     </ion-content>
 
