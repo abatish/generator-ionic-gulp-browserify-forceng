@@ -42,9 +42,4 @@ function buildStyles() {
 
 gulp.task('styles', [], function () {
   return buildStyles();
-})
-
-gulp.task('styles-reload', ['styles'], function() {
-  return buildStyles()
-    .pipe(browserSync.stream());
 });
