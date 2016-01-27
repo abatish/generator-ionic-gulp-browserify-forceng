@@ -10,7 +10,7 @@ module.exports = [ '$ionicPlatform', '$location', 'force',
       apiVersion: '<%= sfApiVersion %>',
       loginURL: '<%= sfLoginUrl %>'  ,
       oauthCallbackURL: $location.protocol() + '://'+ $location.host() + ($location.port() ? ':' + $location.port() : ''),
-      proxyURL: $location.protocol() + '://'+ $location.host()
+      proxyURL: $location.protocol() + '://'+ $location.host() + ($location.port() ? ':' + $location.port() : '')
     });
 
   }
