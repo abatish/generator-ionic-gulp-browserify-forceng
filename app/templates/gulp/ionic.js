@@ -16,7 +16,7 @@ gulp.task('package', ['build'], function () {
   return gulp.src([
     path.join(conf.paths.build, '**/*.js'),
     path.join(conf.paths.build, '**/*.css'),
-    path.join(conf.paths.build, '**/*.+(eot|svg|ttf|woff)'),
+    path.join(conf.paths.build, '**/*.+(eot|svg|ttf|woff|ttc)'),
     path.join(conf.paths.build, '*.html'),
     'config.xml'
   ])
@@ -27,8 +27,8 @@ gulp.task('package', ['build'], function () {
 });
 
 gulp.task('ionic:emulate', ['package'], $.shell.task([
-  'ionic emulate ' + conf.platform + ' --livereload --consolelogs'
-], {interactive: true}));
+  'ionic emulate ' + conf.platform
+]));
 
 gulp.task('ionic:run', ['package'], $.shell.task([
   'ionic run ' + conf.platform

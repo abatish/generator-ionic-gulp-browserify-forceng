@@ -4,6 +4,7 @@ var gulp = require('gulp');
 var path = require('path');
 var conf = require('./gulp/conf');
 
+var ng2HtmlConfig = require('./gulp/scripts').ng2HtmlConfig;
 var _ = require('lodash');
 
 function listFiles() {
@@ -11,6 +12,11 @@ function listFiles() {
     path.join(conf.paths.src, '/**/*.js'),
     path.join(conf.paths.npm, '/angular-mocks/angular-mocks.js')
   ];
+}
+
+var istanbulConfig = {
+  instrumenterConfig: { embedSource: true },
+  ignore: ['**/*.mock.js', '**/*.spec.js', '**/*.html'],
 }
 
 module.exports = function(config) {
@@ -24,7 +30,7 @@ module.exports = function(config) {
       whitelist: [path.join(conf.paths.src, '/**/!(*.html|*.spec|*.mock).js')]
     },
 
-    reporters: ['coverage', 'progress'],
+    reporters: ['coverage', 'progress', 'coveralls'],
 
     // optionally, configure the reporter
     coverageReporter: {
@@ -32,9 +38,9 @@ module.exports = function(config) {
       dir : 'coverage/'
     },
 
-    ngHtml2JsPreprocessor: {
-      stripPrefix: 'src/',
-      moduleName: 'gulpAngular'
+    coverageReporter: {
+      type: 'lcov', // lcov or lcovonly are required for generating lcov.info files
+      dir: 'coverage/'
     },
 
     browsers : ['PhantomJS'],
@@ -43,7 +49,8 @@ module.exports = function(config) {
       'karma-phantomjs-launcher',
       'karma-jasmine',
       'karma-coverage',
-      'karma-browserify'
+      'karma-browserify',
+      'karma-coveralls'
     ],
 
     preprocessors: {
@@ -53,7 +60,11 @@ module.exports = function(config) {
 
     browserify: {
       debug: true,
-      transform: ['browserify-ng-html2js']
+      transform: [
+        ['browserify-ng-html2js', ng2HtmlConfig],
+        'browserify-shim',
+        ['browserify-istanbul', istanbulConfig]
+      ]
     }
   };
 

@@ -15,6 +15,8 @@ var ng2HtmlConfig = {
   baseDir: conf.paths.app
 };
 
+exports.ng2HtmlConfig = ng2HtmlConfig;
+
 var b = watchify(browserify({
   basedir: conf.paths.src,
   entries: ['app/app.js'],
@@ -25,7 +27,7 @@ var b = watchify(browserify({
 
 exports.watchify = b;
 
-b.transform(ngHtml2Js(ng2HtmlConfig))
+b.transform(ngHtml2Js(ng2HtmlConfig));
 b.on('log', conf.logHandler('Watchify'));
 b.on('update', bundle);
 

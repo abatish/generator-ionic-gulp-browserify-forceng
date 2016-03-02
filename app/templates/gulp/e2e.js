@@ -3,7 +3,7 @@
 var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
-var browserSync = require('browser-sync');
+var browserSync = require('./serve').bsInstance;
 var watchify = require('./scripts').watchify;
 
 var $ = require('gulp-load-plugins')();
@@ -14,25 +14,24 @@ gulp.task('webdriver-update', $.protractor.webdriver_update);
 gulp.task('webdriver-standalone', $.protractor.webdriver_standalone);
 
 function runProtractor (done) {
-  var params = process.argv;
-  var args = params.length > 3 ? [params[3], params[4]] : [];
+
   var protractor = $.protractor.protractor({
-    configFile: 'protractor.conf.js',
-    args: args
+    configFile: 'protractor.conf.js'
   });
-  return gulp.src(path.join(conf.paths.e2e, '/**/*.js'))
+
+  gulp.src(path.join(conf.paths.e2e, '/**/*.js'))
     .pipe(protractor)
     .on('error', function (err) {
-      throw err;
+      done(err);
     })
     .on('end', function () {
-      browserSync.exit();
-      watchify.close();
       done();
-      process.exit(); // force gulp to exit immediately.
+      setTimeout(function () {
+        browserSync.exit();
+      }, 100);
     });
 }
 
-gulp.task('e2e', ['serve:e2e', 'webdriver-update'], function(callback) {
-  runProtractor(callback);
+gulp.task('e2e', ['serve:e2e', 'webdriver-update'], function (done) {
+  runProtractor(done)
 });

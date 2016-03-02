@@ -25,7 +25,8 @@ exports.paths = {
   e2e: 'e2e',
   npm: 'node_modules',
   res: 'resources',
-  hooks: 'hooks'
+  hooks: 'hooks',
+  assets: 'src/assets'
 };
 
 exports.platform = argv.platform;

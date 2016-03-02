@@ -28,10 +28,5 @@ gulp.task('clean', [], function () {
 });
 
 gulp.task('build', [], function (callback) {
-  return runSequence('clean', ['inject', 'fonts', 'copy'], callback);
-});
-
-gulp.task('copy', [], function () {
-  return gulp.src(path.join(conf.paths.src, 'oauth.html'))
-    .pipe(gulp.dest(conf.paths.build));
+  return runSequence('clean', ['inject', 'fonts'], callback);
 });

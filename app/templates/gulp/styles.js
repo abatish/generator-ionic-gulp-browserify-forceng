@@ -8,7 +8,9 @@ var gulp = require('gulp'),
 
 gulp.task('fonts', [], function () {
   return gulp.src([
-      path.join(conf.paths.npm, 'ionic-frontend/release/fonts/**/*.+(eot|svg|ttf|woff)')
+      path.join(conf.paths.npm, 'ionic-frontend/release/fonts/**/*.+(eot|svg|ttf|woff)'),
+      path.join(conf.paths.npm, 'font-awesome/fonts/**/*.+(eot|svg|ttf|woff|woff2)'),
+      path.join(conf.paths.assets, 'fonts/**/*.+(eot|svg|ttf|woff)')
     ])
     .pipe(gulp.dest(path.join(conf.paths.build, 'fonts')));
 });
